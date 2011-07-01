@@ -1,0 +1,8 @@
+Copyright (c) 2011 Ian Johnson, Minh Truong and Betsy Kavali
+
+Project description:
+
+Our current plan is to create a Chrome (Chromium) extension designed to allow customization of the "New Tab" page.  There are currently several extensions in the Chrome Store that allow customization (notably, Speed Dial), but nothing exactly for what we’re looking for.
+
+Currently the New Tab page shows a thumbnail view of the most visited sites.  I'm looking to allow the user to create a similar interface only with any links they want, bookmarked or not.  The extension Speed Dial does a similar thing, only it seems to have been discontinued for support, which has frustrated the community since its currently got some major performance problems. 
+
