@@ -1,0 +1,171 @@
+<html>
+ <head>
+  <title>LaunchTab</title>
+  <style>
+  
+  	body {
+  		font-family:Calibri;
+  		font-size:1em; 
+  	
+  	}
+  	
+  	
+  	a {
+  		color: black;
+  		text-decoration:none;
+  	}
+  	
+  	a:HOVER {
+  		color: blue;
+  		text-decoration:underline;
+  		
+  	}
+  	
+  
+  	
+  	.linkHeader {
+  		font-weight: bold;
+  		color: white;
+  		background-color: gray;
+  		font-size: 1.1em;
+  		padding: 2px;
+  		border-color: black;
+  		border-style: solid;
+		border-width: 1px;
+  		
+  	}
+  	
+  	li {
+  		color: gray;
+  	}
+  
+  	
+  </style>
+  
+  
+  	<script type="text/javascript">
+  	
+  	 function getLocation(href) {
+  	    var l = document.createElement("a");
+  	    l.href = href;
+  	    return l
+  	  }
+  	  
+  	  function contains(a, obj){
+  		  for(var i = 0; i < a.length; i++) {
+  		    if(a[i] === obj){
+  		      return true;
+  		    }
+  		  }
+  		  return false;
+  		}
+  	
+  	
+  	</script>
+
+  
+  
+  
+ </head>
+ <body>
+  
+  <label class="linkHeader">Favorite Links</label> 
+  <ul id="ulFavoriteLinks" >
+  </ul>  
+	
+	
+  <label class="linkHeader">Most Visited</label> 
+    <ul id="ulMostVisited" >
+  </ul>  
+  
+   <label class="linkHeader">Most Recent</label> 
+    <ul id="ulMostRecent" >
+  	</ul>  
+	
+	
+	
+ <script type="text/javascript">
+  
+ 	//TODO: show/hide sections based on options
+ 
+  	chrome.history.search({text: "", maxResults: 10000}, function(items) {
+  		
+  		/**************************************
+  		****** MOST RECENT ********************
+  		**************************************/
+  	 	var ulMostRecent = document.getElementById('ulMostRecent');
+  	 	for (i = 0; i < 10; i++) {
+  	 		var hostname = getLocation(items[i].url).hostname;
+  	 		var link = document.createElement('li');
+			link.innerHTML = "<a href='" + items[i].url + "'>" + items[i].title + "</a>&nbsp;&nbsp;<i>(" + hostname + ")</i>";
+			ulMostRecent.appendChild(link);
+  	 	}
+  	 	
+  		/**************************************
+  		****** MOST VISITED *******************
+  		**************************************/
+  	 	// determine the most visited
+  	 	var mostVisitedItems = items;
+  	 	mostVisitedItems.sort(function(a, b){
+  	 	 return b.visitCount - a.visitCount;
+  	 	})
+  	 	
+  	 	// populate the most visited
+  		var ulMostVisited = document.getElementById('ulMostVisited');
+  	 	var alreadyUsedDomains = new Array();
+  	 	var count = 0;
+  	 	var index = 0;
+  	 	while (index < mostVisitedItems.length && count <= 10) {
+  	 		var tmpItem = mostVisitedItems[index];
+  	 		var hostname = getLocation(tmpItem.url).hostname;
+  	 		
+  	 		//there are  cases where are multiple "most visited" entries for the same domain; we only use the latest one.  
+  	 		//an example of this being an issue is with gmail. if the user types in mail.google.com or gmail.com, they are redirected automatically to the https://mail.google.com/mail/#inbox.  
+  	 		//in this situation we would erroneously get two "gmail" entries in the most visited list, which would pollute the results.
+  	 		if (!contains(alreadyUsedDomains, hostname)) {	
+				var link = document.createElement('li');
+				link.innerHTML = "<a href='" + tmpItem.url + "'>" + tmpItem.title + "</a>&nbsp;&nbsp;<i>(" + hostname + ")</i>";
+				ulMostVisited.appendChild(link);
+				count++;
+				alreadyUsedDomains.push(hostname);
+			}
+  	 		index++;
+  	 	}  	 	
+  	 		  	 	
+  	});
+  
+  
+  	/**************************************
+	****** FAVORITES **********************
+	**************************************/
+	 	
+  	//TODO: actually get favorite links
+
+  	//populate the favorites
+ 	var ulFavoriteLinks = document.getElementById('ulFavoriteLinks');
+  	
+ 	var fav1 = document.createElement('li');
+ 	fav1.innerHTML = "<a href='" + "http://www.google.com" + "'>Google</a>";
+  	ulFavoriteLinks.appendChild(fav1);
+  
+ 	var fav2 = document.createElement('li');
+ 	fav2.innerHTML = "<a href='" + "http://www.yahoo.com" + "'>Yahoo</a>";
+  	ulFavoriteLinks.appendChild(fav2);
+
+ 	var fav3 = document.createElement('li');
+ 	fav3.innerHTML = "<a href='" + "http://www.micrsoroft.com" + "'>Microsoft</a>";
+  	ulFavoriteLinks.appendChild(fav3);
+
+  
+  	
+  
+  
+  
+  </script>
+ 
+
+	
+	
+ </body>
+</html>
+
