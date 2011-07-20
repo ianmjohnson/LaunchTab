@@ -1,0 +1,71 @@
+<html>
+<head><title>My Test Extension Options</title></head>
+<script type="text/javascript">
+
+// Saves options to localStorage.
+function save_options() {
+  /*var select = document.getElementById("color");
+  var color = select.children[select.selectedIndex].value;
+  localStorage["favorite_color"] = color;
+
+  // Update status to let user know options were saved.
+  var status = document.getElementById("status");
+  status.innerHTML = "Options Saved.";
+  setTimeout(function() {
+    status.innerHTML = "";
+  }, 750);*/
+}
+
+// Restores select box state to saved value from localStorage.
+function restore_options() {
+  /*var favorite = localStorage["key"];
+  if (!favorite) {
+    return;
+  }
+  var select = document.getElementById("color");
+  for (var i = 0; i < select.children.length; i++) {
+    var child = select.children[i];
+    if (child.value == favorite) {
+      child.selected = "true";
+      break;
+    }
+  } */
+  var p1 = localStorage["Name"];
+  var p2 = localStorage["NameMinus1"];
+  var p3 = localStorage["NameMinus2"];
+  var p4 = localStorage["NameMinus3"];
+  var p5 = localStorage["NameMinus4"];
+  var p6 = localStorage["NameMinus5"];
+  var p7 = localStorage["NameMinus6"];
+  var p8 = localStorage["NameMinus7"];
+
+  document.getElementById('custPage1').innerHTML = p1;
+  document.getElementById('custPage2').innerHTML = p2;
+  document.getElementById('custPage3').innerHTML = p3;
+  document.getElementById('custPage4').innerHTML = p4;
+  document.getElementById('custPage5').innerHTML = p5;
+  document.getElementById('custPage6').innerHTML = p6;
+  document.getElementById('custPage7').innerHTML = p7;
+  document.getElementById('custPage8').innerHTML = p8;
+
+}
+
+</script>
+
+<body onload="restore_options()">
+
+Custom Pages:
+Custom page 1: <input type="text" name="custPage1" /><br />
+Custom page 2: <input type="text" name="custPage2" /><br />
+Custom page 3: <input type="text" name="custPage3" /><br />
+Custom page 4: <input type="text" name="custPage4" /><br />
+Custom page 5: <input type="text" name="custPage5" /><br />
+Custom page 6: <input type="text" name="custPage6" /><br />
+Custom page 7: <input type="text" name="custPage7" /><br />
+Custom page 8: <input type="text" name="custPage8" />
+
+<br>
+<button onclick="save_options()">Save</button>
+</body>
+</html>
+
