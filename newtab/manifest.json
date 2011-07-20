@@ -1,6 +1,7 @@
 {
   "name": "New Tab",
   "version": "1.0",
+  "options_page": "options.html",
   "chrome_url_overrides": {
     "newtab": "newtab.html"
   },
