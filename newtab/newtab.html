@@ -61,6 +61,25 @@
   		}
   	
   	
+
+	function setFavoriteLink(variable){
+		var ulFavoriteLinks = document.getElementById('ulFavoriteLinks');
+		var url = localStorage[variable];
+		if (url != "" && url != null && url != "null") {
+	 		var fav = document.createElement('li');
+		 	fav.innerHTML = "<a href='" + url + "'>" + url + "</a>";
+		  	ulFavoriteLinks.appendChild(fav);  		  
+		}
+	}
+
+
+	
+	  function favoriteLink(linkUrl, linkName) {
+		this.linkUrl = linkUrl;
+		this.linkName = linkName;
+	 }
+
+
   	</script>
 
   
@@ -139,25 +158,38 @@
 	****** FAVORITES **********************
 	**************************************/
 	 	
-  	//TODO: actually get favorite links
-
   	//populate the favorites
- 	var ulFavoriteLinks = document.getElementById('ulFavoriteLinks');
-  	
- 	var fav1 = document.createElement('li');
- 	fav1.innerHTML = "<a href='" + "http://www.google.com" + "'>Google</a>";
-  	ulFavoriteLinks.appendChild(fav1);
-  
- 	var fav2 = document.createElement('li');
- 	fav2.innerHTML = "<a href='" + "http://www.yahoo.com" + "'>Yahoo</a>";
-  	ulFavoriteLinks.appendChild(fav2);
+ 	setFavoriteLink("Name");
+	setFavoriteLink("NameMinus1");
+	setFavoriteLink("NameMinus2");
+	setFavoriteLink("NameMinus3");
+	setFavoriteLink("NameMinus4");
+	setFavoriteLink("NameMinus5");
+	setFavoriteLink("NameMinus6");
+	setFavoriteLink("NameMinus7");
+	
 
- 	var fav3 = document.createElement('li');
- 	fav3.innerHTML = "<a href='" + "http://www.micrsoroft.com" + "'>Microsoft</a>";
-  	ulFavoriteLinks.appendChild(fav3);
 
-  
+
+	var ourFavLinks = new Array();
   	
+	var favLink = new favoriteLink("www.yahoo.com", "YAHOOOOOOO");
+	var favLink2 = new favoriteLink("www.google.com", "GOOGLE");
+
+	ourFavLinks.push(favLink);
+	ourFavLinks.push(favLink2);
+	
+	
+	localStorage["localStorageLinks"] = JSON.stringify(ourFavLinks);
+
+
+	var newSetOfLinks = JSON.parse(localStorage["localStorageLinks"]);
+	
+	for (i = 0; i < newSetOfLinks.length; i++) {
+  		var tmpLink = newSetOfLinks[i];
+		var linkName = tmpLink.linkName;
+		var linkUrl = tmpLink.linkUrl; 	
+  	}
   
   
   
