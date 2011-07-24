@@ -1,6 +1,7 @@
 <html>
  <head>
   <title>LaunchTab</title>
+  <script src="data.js"></script>
   <style>
   
   	body {
@@ -62,9 +63,8 @@
   	
   	
 
-	function setFavoriteLink(variable){
+	function displayFavoriteLink(url){
 		var ulFavoriteLinks = document.getElementById('ulFavoriteLinks');
-		var url = localStorage[variable];
 		if (url != "" && url != null && url != "null") {
 	 		var fav = document.createElement('li');
 		 	fav.innerHTML = "<a href='" + url + "'>" + url + "</a>";
@@ -73,11 +73,7 @@
 	}
 
 
-	
-	  function favoriteLink(linkUrl, linkName) {
-		this.linkUrl = linkUrl;
-		this.linkName = linkName;
-	 }
+
 
 
   	</script>
@@ -159,38 +155,14 @@
 	**************************************/
 	 	
   	//populate the favorites
- 	setFavoriteLink("Name");
-	setFavoriteLink("NameMinus1");
-	setFavoriteLink("NameMinus2");
-	setFavoriteLink("NameMinus3");
-	setFavoriteLink("NameMinus4");
-	setFavoriteLink("NameMinus5");
-	setFavoriteLink("NameMinus6");
-	setFavoriteLink("NameMinus7");
-	
-
-
-
-	var ourFavLinks = new Array();
+ 	var favoriteLinks = new Array();
+  	favoriteLinks = getFavoriteLinks();
   	
-	var favLink = new favoriteLink("www.yahoo.com", "YAHOOOOOOO");
-	var favLink2 = new favoriteLink("www.google.com", "GOOGLE");
-
-	ourFavLinks.push(favLink);
-	ourFavLinks.push(favLink2);
-	
-	
-	localStorage["localStorageLinks"] = JSON.stringify(ourFavLinks);
-
-
-	var newSetOfLinks = JSON.parse(localStorage["localStorageLinks"]);
-	
-	for (i = 0; i < newSetOfLinks.length; i++) {
-  		var tmpLink = newSetOfLinks[i];
-		var linkName = tmpLink.linkName;
-		var linkUrl = tmpLink.linkUrl; 	
+  	for (index in favoriteLinks) {
+  		displayFavoriteLink(favoriteLinks[index]);	
   	}
-  
+  	
+  	
   
   
   </script>
