@@ -1,18 +1,16 @@
 {
-  "name": "New Tab",
+  "name": "LaunchTab",
   "version": "1.0",
   "options_page": "options.html",
   "chrome_url_overrides": {
     "newtab": "newtab.html"
   },
-  "background_page": "background.html",
   "permissions": [
-    "history", "tabs", "http://*/*", "https://*/*"
+   "history", "tabs", "http://*/*", "https://*/*"
   ],
   "browser_action": {
-      "name": "Print this page",
       "default_icon": "sample-16x16.png",
-      "default_title": "Sample Local Storage",
+      "default_title": "LaunchTab",
       "popup" : "popT.html"
   },
   "icons": {
