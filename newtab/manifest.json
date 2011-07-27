@@ -13,7 +13,7 @@
       "name": "Print this page",
       "default_icon": "sample-16x16.png",
       "default_title": "Sample Local Storage",
-      "popup" : "pop1.html"
+      "popup" : "popT.html"
   },
   "icons": {
             "128": "sample_icon_128.png"
