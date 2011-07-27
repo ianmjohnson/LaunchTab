@@ -9,11 +9,11 @@
    "history", "tabs", "http://*/*", "https://*/*"
   ],
   "browser_action": {
-      "default_icon": "sample-16x16.png",
+      "default_icon": "icon.png",
       "default_title": "LaunchTab",
       "popup" : "popT.html"
   },
   "icons": {
-            "128": "sample_icon_128.png"
+            "128": "icon.jpg"
   }
 }
