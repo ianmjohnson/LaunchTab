@@ -6,7 +6,7 @@
   
   	body {
   		font-family:Calibri;
-  		font-size:1em; 
+  		font-size:1.2em; 
   	
   	}
   	
@@ -112,7 +112,7 @@
   	 	for (i = 0; i < 10; i++) {
   	 		var hostname = getLocation(items[i].url).hostname;
   	 		var link = document.createElement('li');
-			link.innerHTML = "<a href='" + items[i].url + "'>" + items[i].title + "</a>&nbsp;&nbsp;<i>(" + hostname + ")</i>";
+			link.innerHTML = "<a href='" + items[i].url + "'>" + hostname + "</a>&nbsp;&nbsp;<i>(" + items[i].title + ")</i>";
 			ulMostRecent.appendChild(link);
   	 	}
   	 	
@@ -134,12 +134,13 @@
   	 		var tmpItem = mostVisitedItems[index];
   	 		var hostname = getLocation(tmpItem.url).hostname;
   	 		
+  	 		
   	 		//there are  cases where are multiple "most visited" entries for the same domain; we only use the latest one.  
   	 		//an example of this being an issue is with gmail. if the user types in mail.google.com or gmail.com, they are redirected automatically to the https://mail.google.com/mail/#inbox.  
   	 		//in this situation we would erroneously get two "gmail" entries in the most visited list, which would pollute the results.
   	 		if (!contains(alreadyUsedDomains, hostname)) {	
 				var link = document.createElement('li');
-				link.innerHTML = "<a href='" + tmpItem.url + "'>" + tmpItem.title + "</a>&nbsp;&nbsp;<i>(" + hostname + ")</i>";
+				link.innerHTML = "<a href='" + tmpItem.url + "'>" + hostname + "</a>&nbsp;&nbsp;<i>(" + tmpItem.visitCount + " / " + tmpItem.title + ")</i>";
 				ulMostVisited.appendChild(link);
 				count++;
 				alreadyUsedDomains.push(hostname);
