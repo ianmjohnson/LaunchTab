@@ -102,8 +102,12 @@
  <script type="text/javascript">
   
  	//TODO: show/hide sections based on options
- 
-  	chrome.history.search({text: "", maxResults: 10000}, function(items) {
+ 	
+ 	//parse the last 30 days of history
+ 	var date = new Date();
+	date.setDate(date.getDate() - 30);
+
+ 	chrome.history.search({text: "", maxResults: 1000, startTime: Number(date)}, function(items) {
   		
   		/**************************************
   		****** MOST RECENT ********************
@@ -140,7 +144,7 @@
   	 		//in this situation we would erroneously get two "gmail" entries in the most visited list, which would pollute the results.
   	 		if (!contains(alreadyUsedDomains, hostname)) {	
 				var link = document.createElement('li');
-				link.innerHTML = "<a href='" + tmpItem.url + "'>" + hostname + "</a>&nbsp;&nbsp;<i>(" + tmpItem.visitCount + " / " + tmpItem.title + ")</i>";
+				link.innerHTML = "<a href='" + tmpItem.url + "'>" + hostname + "</a>&nbsp;&nbsp;<i>(" + tmpItem.title + ")</i>";
 				ulMostVisited.appendChild(link);
 				count++;
 				alreadyUsedDomains.push(hostname);
