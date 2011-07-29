@@ -1,3 +1,44 @@
+/*********************************************
+ * Visted LINKS
+ ********************************************/
+
+function setMaxNumOfVistedLinks(maxlinks)
+{
+	localStorage["visitedLinks"] = maxlinks;
+}
+
+function getMaxNumOfVistedLinks()
+{
+	if (localStorage["visitedLinks"] != null) {
+		returnLinks = localStorage["visitedLinks"];
+	}
+        else
+	{
+        	returnLinks = "10";
+	}
+	return returnLinks;
+}
+
+/*********************************************
+ * Recent LINKS
+ ********************************************/
+
+function setMaxNumOfRecentLinks(maxlinks)
+{
+	localStorage["recentLinks"] = maxlinks;
+}
+
+function getMaxNumOfRecentLinks()
+{
+	if (localStorage["recentLinks"] != null) {
+		returnLinks = localStorage["recentLinks"];
+	}
+	else
+	{
+		returnLinks = "10";
+	}
+	return returnLinks;
+}
 
 /*********************************************
  * FAVORITE LINKS
@@ -19,7 +60,6 @@ function getFavoriteLinks() {
 function setFavoriteLinks(favoriteLinks) {
 	localStorage["favoriteLinks"] = JSON.stringify(favoriteLinks);
 }
-
 
 function addFavoriteLink(url) {
 	

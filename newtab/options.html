@@ -1,5 +1,22 @@
+<!DOCTYPE HTML SYSTEM>
 <html>
-<head><title>My Test Extension Options</title></head>
+<head><title>My Test Extension Options</title>
+  <script src="data.js" type="text/javascript"></script>
+  <style type="text/css">  	
+  	.linkHeader {
+  		font-weight: bold;
+  		color: white;
+  		background-color: gray;
+  		font-size: 1.1em;
+  		padding: 2px;
+  		border-color: black;
+  		border-style: solid;
+		border-width: 1px;
+  		
+  	}
+  	
+  </style>
+
 <script type="text/javascript">
 
 // Saves options to localStorage.
@@ -15,58 +32,94 @@ function save_options() {
     status.innerHTML = "";
   }, 750);*/
   
-  oFormObject = document.forms['custom_page'];
-  localStorage["Name"] = oFormObject.elements["custPage1"].value;
-  localStorage["NameMinus1"] = oFormObject.elements["custPage2"].value;
-  localStorage["NameMinus2"] = oFormObject.elements["custPage3"].value;
-  localStorage["NameMinus3"] = oFormObject.elements["custPage4"].value;
-  localStorage["NameMinus4"] = oFormObject.elements["custPage5"].value;
-  localStorage["NameMinus5"] = oFormObject.elements["custPage6"].value;
-  localStorage["NameMinus6"] = oFormObject.elements["custPage7"].value;
-  localStorage["NameMinus7"] = oFormObject.elements["custPage8"].value;
-}
+  oFormObject = document.forms["ulCustoms"];
 
-// Restores select box state to saved value from localStorage.
-function restore_options() {
-  var p1 = localStorage["Name"];
-  var p2 = localStorage["NameMinus1"];
-  var p3 = localStorage["NameMinus2"];
-  var p4 = localStorage["NameMinus3"];
-  var p5 = localStorage["NameMinus4"];
-  var p6 = localStorage["NameMinus5"];
-  var p7 = localStorage["NameMinus6"];
-  var p8 = localStorage["NameMinus7"];
+  var favoriteLinks = new Array(); 
+ 
+  favoriteLinks.push(oFormObject.elements["custPage1"].value);
+  favoriteLinks.push(oFormObject.elements["custPage2"].value);
+  favoriteLinks.push(oFormObject.elements["custPage3"].value);
+  favoriteLinks.push(oFormObject.elements["custPage4"].value);
+  favoriteLinks.push(oFormObject.elements["custPage5"].value);
+  favoriteLinks.push(oFormObject.elements["custPage6"].value);
+  favoriteLinks.push(oFormObject.elements["custPage7"].value);
+  favoriteLinks.push(oFormObject.elements["custPage8"].value);
 
-  oFormObject = document.forms['custom_page'];
-  oFormObject.elements["custPage1"].value = p1;
-  oFormObject.elements["custPage2"].value = p2;
-  oFormObject.elements["custPage3"].value = p3;
-  oFormObject.elements["custPage4"].value = p4;
-  oFormObject.elements["custPage5"].value = p5;
-  oFormObject.elements["custPage6"].value = p6;
-  oFormObject.elements["custPage7"].value = p7;
-  oFormObject.elements["custPage8"].value = p8;
+  setFavoriteLinks(favoriteLinks);
 
 }
 
-</script>
+function addFavorite() {
+}
 
-<body onload="restore_options()">
+function deleteFavorite() {
+}
 
-<form id="custom_page" action="#">
-Custom Pages:<br />
-Custom page 1: <input type="text" name="custPage1" /><br />
-Custom page 2: <input type="text" name="custPage2" /><br />
-Custom page 3: <input type="text" name="custPage3" /><br />
-Custom page 4: <input type="text" name="custPage4" /><br />
-Custom page 5: <input type="text" name="custPage5" /><br />
-Custom page 6: <input type="text" name="custPage6" /><br />
-Custom page 7: <input type="text" name="custPage7" /><br />
-Custom page 8: <input type="text" name="custPage8" />
-<br>
-<button onclick="save_options()">Save</button>
-</form>
+</script>  
+ </head>
+ <body>  
+  <label class="linkHeader">Maximum Number of Most Visited Links:</label>
+  <input type="text" name="numMostVisited" /><br />
+  <label class="linkHeader">Maximum Number of Most Recent Links:</label>
+  <input type="text" name="numMostRecent" /><br />
 
+  <label class="linkHeader">Custom Pages</label><br />
+  <label class="linkHeader">Maximum Number of Most Favorite Links:</label>
+  <input type="text" name="numMostFavorite" /><br />
+  <button onclick="save_options()">Save</button>  
+  <button onclick="addFavorite()">Add New</button><br />  
+  
+  <button onclick="deleteFavorite()">Delete</button>  
+  <form id="ulCustoms" action="#">
+  </form>  
+
+
+ <script type="text/javascript">
+  
+ 	//TODO: show/hide sections based on options
+
+        //document.getElementById("numMostVisited").value = getMaxNumOfVistedLinks();
+        //document.getElementById("numMostRecent").value = getMaxNumOfRecentLinks();
+
+	//populate the favorites
+ 	var favoriteLinks = new Array();
+  	favoriteLinks = getFavoriteLinks();
+  	
+  	//document.getElementById("numMostFavorite").value = '6';
+	var custom = document.getElementById("ulCustoms");
+
+  	for (index in favoriteLinks) {
+  		//displayFavoriteLink(favoriteLinks[index]);
+
+		var custPageLabel = 'Custom Page';
+                var custPage = 'customPage';
+                custPageLabel += index;
+                custPage += index;
+		//Custom page 1: <input type="text" name="custPage1"
+
+		var cb = document.createElement('input');
+ 	        cb.type = 'checkbox'
+                custom.appendChild(cb);
+    		cb.name = custPage;
+    		cb.value = '0';
+    		cb.appendChild(document.createTextNode(''));
+
+		//var label = document.createElement("label");
+                //label.for = custPage;
+                //label.name = custPageLabel;
+                //custom.appendChild(element);
+
+		var element = document.createElement("input");
+                element.setAttribute("type", "text");
+                element.setAttribute("value", favoriteLinks[index]);
+      		element.setAttribute("name", custPage);
+
+		//Append the element in page.
+		custom.appendChild(element);
+                document.write("<br />");
+  	}
+
+</script>  	  	  
 </body>
 </html>
 
