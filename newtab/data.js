@@ -2,12 +2,12 @@
  * Visted LINKS
  ********************************************/
 
-function setMaxNumOfVistedLinks(maxlinks)
+function setNumOfVistedLinks(numlinks)
 {
-	localStorage["visitedLinks"] = maxlinks;
+	localStorage["visitedLinks"] = numlinks;
 }
 
-function getMaxNumOfVistedLinks()
+function getNumOfVistedLinks()
 {
 	if (localStorage["visitedLinks"] != null) {
 		returnLinks = localStorage["visitedLinks"];
@@ -23,12 +23,12 @@ function getMaxNumOfVistedLinks()
  * Recent LINKS
  ********************************************/
 
-function setMaxNumOfRecentLinks(maxlinks)
+function setNumOfRecentLinks(numlinks)
 {
-	localStorage["recentLinks"] = maxlinks;
+	localStorage["recentLinks"] = numlinks;
 }
 
-function getMaxNumOfRecentLinks()
+function getNumOfRecentLinks()
 {
 	if (localStorage["recentLinks"] != null) {
 		returnLinks = localStorage["recentLinks"];
@@ -44,6 +44,14 @@ function getMaxNumOfRecentLinks()
  * FAVORITE LINKS
  ********************************************/
 
+function getNumOfFavoriteLinks()
+{
+  	var favoriteLinks = getFavoriteLinks();
+        if ( favoriteLinks.length > 0 ) {
+	    return favoriteLinks.length;
+        }
+        return "0";
+}
 
 function getFavoriteLinks() {
 
