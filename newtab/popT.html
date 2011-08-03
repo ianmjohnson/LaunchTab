@@ -28,7 +28,7 @@
 </style>
 
     <script>
-     
+//Function to get the url of the current page and send it to favorite links
 function store() {
      chrome.tabs.getSelected(null,function(tab) {
       var tablink = tab.url;
@@ -45,15 +45,15 @@ window.close();
   <body>
     <form name='form1'>
       <table class="my_table" cellpadding="0" cellspacing="0" width=200px>
-        <tr>
-	  	  <td class="style1" colspan="2" align="center">Store this page to Favorite Links</td>
+                <tr>
+	  	<td class="style1" colspan="2" align="center">Store this page to Favorite Links</td>
 	  	</tr>
 	  	
 		<tr class="even">
-		  <td class="rborder" colspan="2" align='center'>
-                      <br />
-		    <input type='submit' value='Store' OnClick='store()'/></td>
-	    </tr>
+		<td class="rborder" colspan="2" align='center'>
+                <br />
+		<input type='submit' value='Store' OnClick='store()'/></td>
+	        </tr>
 		
 		
       </table>
