@@ -1,8 +1,62 @@
-Copyright (c) 2011 Ian Johnson, Minh Truong and Betsy Kavali
+Project Members
 
-Project description:
+1. Name : Ian Johnson, 		Email : ianmjohnson@gmail.com
+2. Name : Minh Truong,	        Email : minh_truong98@yahoo.com
+3. Name : Betsy Rubina Kavali,  Email : betruby@gmail.com
 
-Our current plan is to create a Chrome (Chromium) extension designed to allow customization of the "New Tab" page.  There are currently several extensions in the Chrome Store that allow customization (notably, Speed Dial), but nothing exactly for what we’re looking for.
 
-Currently the New Tab page shows a thumbnail view of the most visited sites.  I'm looking to allow the user to create a similar interface only with any links they want, bookmarked or not.  The extension Speed Dial does a similar thing, only it seems to have been discontinued for support, which has frustrated the community since its currently got some major performance problems. 
+README
+
+Copyright (c) 2011 Ian Johnson, Minh Truong and Betsy Rubina Kavali
+
+This project creates a Chrome (Chromium) extension designed to allow customization of the "New Tab" page. There are currently several extensions in the Chrome Store that allow customization (notably, Speed Dial), but nothing exactly for what we’re looking for.
+
+Currently the New Tab page shows a thumbnail view of the most visited sites.  We have created a similar interface where the New Tab page also shows a set of links the user wants, bookmarked or not.  The extension Speed Dial does a similar thing, only it seems to have been discontinued for support, which has frustrated the community since its currently got some major performance problems. 
+
+The languages we mainly used for this extension are JavaScript and HTML. 
+
+Copyright (c) 2011 Ian Johnson, Minh Truong and Betsy Rubina Kavali
+
+Project Title : LaunchTab
+
+Project Description:
+
+Our Project creates an extension to the Google Chrome Browser. By having this extension on the Browser, the New Tab page shows a set of favorite Links, along with the Most visited links and the Most Recent Links. 
+This extension appears as an icon on the main Google Chrome toolbar, to the right of the address bar. Whenever you want to add a page to the Favorite links, you click on this icon and store the page to favorite links, and this link appears on your set of favorite links on the New Tab page.
+On the options page of the extension, you can choose how many Favorite, Most Visted and Most Recent links you want on your New Tab page.
+This extension to the Chrome Browser makes it very convenient, as you readily have all your Favorite, Most Visted and Most Recent links every time you go the New Tab page.
+
+
+"Docs"
+
+Copyright (c) 2011 Ian Johnson, Minh Truong and Betsy Rubina Kavali
+
+The steps below install the extension or one can also make changes to the extension and reload them. These instructions are also available at http://code.google.com/chrome/extensions
+
+1.The extensions's code must be saved in a folder somewhere on your computer.
+  
+2.Steps to load extension onto your Chrome Browser.
+    a. Bring up the extensions management page by clicking the wrench icon   and choosing Tools > Extensions.
+    b. If Developer mode has a + by it, click the + to add developer information to the page. The + changes to a -, and more buttons and information appear.
+    c. Click the Load unpacked extension button. A file dialog appears.
+    d. In the file dialog, navigate to your extension's folder and click OK.
+
+3.To edit/add the extension
+   a. Edit the files inside the extension folder.
+   b. Return to the extensions management page, and click the Reload button to load the new version of the extension.
+
+License Information
+
+Copyright (c) 2011 Ian Johnson, Minh Truong and Betsy Rubina Kavali
+
+The MIT License (MIT)
+Copyright (c) <year> <copyright holders>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
 
