@@ -1,0 +1,10 @@
+Copyright (c) 2011 Ian Johnson, Minh Truong and Betsy Rubina Kavali
+
+Project Title : LaunchTab
+
+Project Description:
+
+Our Project creates an extension to the Google Chrome Browser. By having this extension on the Browser, the New Tab page shows a set of favorite Links, along with the Most visited links and the Most Recent Links. 
+This extension appears as an icon on the main Google Chrome toolbar, to the right of the address bar. Whenever you want to add a page to the Favorite links, you click on this icon and store the page to favorite links, and this link appears on your set of favorite links on the New Tab page.
+On the options page of the extension, you can choose how many Favorite, Most Visted and Most Recent links you want on your New Tab page.
+This extension to the Chrome Browser makes it very convenient, as you readily have all your Favorite, Most Visted and Most Recent links every time you go the New Tab page.
