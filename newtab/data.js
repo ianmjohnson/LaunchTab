@@ -9,12 +9,9 @@ function setNumOfVistedLinks(numlinks)
 
 function getNumOfVistedLinks()
 {
+	var returnLinks = "10"; 
 	if (localStorage["visitedLinks"] != null) {
 		returnLinks = localStorage["visitedLinks"];
-	}
-        else
-	{
-        	returnLinks = "10";
 	}
 	return returnLinks;
 }
@@ -30,12 +27,9 @@ function setNumOfRecentLinks(numlinks)
 
 function getNumOfRecentLinks()
 {
+	var returnLinks = "10"; 
 	if (localStorage["recentLinks"] != null) {
 		returnLinks = localStorage["recentLinks"];
-	}
-	else
-	{
-		returnLinks = "10";
 	}
 	return returnLinks;
 }
@@ -43,6 +37,20 @@ function getNumOfRecentLinks()
 /*********************************************
  * FAVORITE LINKS
  ********************************************/
+
+function setTempNumOfFavoriteLinks(numlinks)
+{
+	localStorage["tempFavoriteLinks"] = numlinks;
+}
+
+function getTempNumOfFavoriteLinks()
+{
+	var returnLinks = "0";
+	if (localStorage["tempFavoriteLinks"] != null) {
+		returnLinks = localStorage["tempFavoriteLinks"];
+	}
+	return returnLinks;
+}
 
 function getNumOfFavoriteLinks()
 {
