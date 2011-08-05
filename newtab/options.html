@@ -3,10 +3,23 @@
 <head><title>My Test Extension Options</title>
   <script src="data.js" type="text/javascript"></script>
   <style type="text/css">  	
+        .header {
+  		font-weight: bold;
+  		color: #99cc00;
+  		font-size: 1.7em;
+  		padding: 2px;
+  	}
+  	.label {
+  		font-weight: normal;
+  		color: black;
+  		font-size: 1.0em;
+  		padding: 2px;
+  	}
+
   	.linkHeader {
   		font-weight: normal;
   		color: black;
-  		font-size: 1.1em;
+  		font-size: 1.2em;
   		padding: 2px;
   	}
   	
@@ -15,31 +28,34 @@
 <script type="text/javascript">
 
 // Saves options to localStorage.
-function save_options(form) { 
+function save_all_options() { 
+  setNumOfVistedLinks(document.getElementById("numMostVisited").value);
+  setNumOfRecentLinks(document.getElementById("numMostRecent").value);
+  save_fav_links();
+}
+
+function save_fav_links() { 
   var oFormObject = document.forms["ulCustoms"];
 
   var favoriteLinks = new Array(); 
 
-  var numFavLinks = getNumOfFavoriteLinks();
+  var numFavLinks = getTempNumOfFavoriteLinks();
 
   for (var i=0; i<numFavLinks; i++)
   {
      var custPageName = "customPage";
      custPageName += i; 
-     favoriteLinks.push(oFormObject.elements[custPageName].value);
+     if ( oFormObject.elements[custPageName] && oFormObject.elements[custPageName].value != "" )
+     	favoriteLinks.push(oFormObject.elements[custPageName].value);
   }
   setFavoriteLinks(favoriteLinks);
-
-  setNumOfVistedLinks(document.getElementById("numMostVisited").value);
-  setNumOfRecentLinks(document.getElementById("numMostRecent").value);
 }
 
 function addFavorite() {
 
 	//populate the favorites
-
        var custom = document.getElementById("ulCustoms");
-       var index = getNumOfFavoriteLinks();
+       var index = getTempNumOfFavoriteLinks();
 	  			
 	var custPageLabel = 'Custom Page';
        var custPageName = 'customPage';
@@ -55,49 +71,64 @@ function addFavorite() {
     	cb.value = '0';
     	cb.appendChild(document.createTextNode(''));
 
-       var newFavName = "Please add links.";
-       newFavName += index;
-
        var element = document.createElement("input");
        element.setAttribute("type", "text");
-       element.setAttribute("value", newFavName);
+       element.setAttribute("value", "");
        element.setAttribute("name", custPageName);
+       element.setAttribute("size", "40");
 
         //Append the element in page.
        custom.appendChild(element);
               
        var breaknode = document.createElement('br');
        custom.appendChild(breaknode);
-  
-       //document.getElementsByName("numMostFavorite").value = index;
-       addFavoriteLink(newFavName);
-}
+  	
+       setTempNumOfFavoriteLinks(++index);
+  }
 
-function deleteFavorite() {
+function clearFavorite() {
 
+  var custom = document.getElementById("ulCustoms");
+
+  var oFormObject = document.forms["ulCustoms"];
+
+  var numFavLinks = getTempNumOfFavoriteLinks();
+  for (var i=0; i<numFavLinks; i++)
+  {
+     var custPageName = 'customPage';
+     var custCheckName = 'customCheck';
+     custPageName += i;
+     custCheckName += i; 
+     if ( oFormObject.elements[custCheckName] && oFormObject.elements[custCheckName].checked )
+     {
+         oFormObject.elements[custPageName].value = "";
+         oFormObject.elements[custCheckName].checked = 0;
+         //custom.removeChild(oFormObject.elements[custPageName]);
+         //custom.removeChild(oFormObject.elements[custCheckName]);
+     }
+  }
 }
 
 </script>  
  </head>
  <body>  
-  <label class="linkHeader">Maximum Number of Most Visited Links:</label>
-  <input type="text" id="numMostVisited" /><br />
-  <label class="linkHeader">Maximum Number of Most Recent Links:</label>
-  <input type="text" id="numMostRecent" /><br /><br />
+  <label class="header">Launch Tab Options</label> <br /><br />
+  <button onclick="save_all_options()">Save All</button> <br /><br />
+  <label class="label">Maximum Number of Most Visited Links:</label>
+  <input type="text" size= "5" maxlength="3" id="numMostVisited" /><br />
+  <label class="label">Maximum Number of Most Recent Links:</label>
+  <input type="text" size= "5" maxlength="3" id="numMostRecent" /><br /><br /><br />
 
-  <label class="linkHeader">Custom Pages</label><br />
-  <button onclick="save_options(this.form)">Save</button>  
-  <button onclick="addFavorite()">Add New</button><br />  
-  
-  <button onclick="deleteFavorite()">Delete</button>  
+  <label class="linkHeader">Favorite Links:</label><br /><br />    
+  <button onclick="clearFavorite()">Clear</button>  
+  <button onclick="addFavorite()">Add New</button>  
+  <button onclick="save_fav_links()">Save</button> <br />
   <form id="ulCustoms" action="#">
   </form>  
 
 
  <script type="text/javascript">
   
- 	//TODO: show/hide sections based on options
-
         document.getElementById("numMostVisited").value = getNumOfVistedLinks();
         document.getElementById("numMostRecent").value = getNumOfRecentLinks();
 
@@ -119,31 +150,30 @@ function deleteFavorite() {
               custCheck += index;
 		//Custom page 1: <input type="text" name="custPage1"
 
-		var cb = document.createElement('input');
- 	       cb.type = 'checkbox'
+	      var cb = document.createElement('input');
+ 	      cb.type = 'checkbox'
               custom.appendChild(cb);
-    		cb.name = custCheck;
-    		cb.value = '0';
-    		cb.appendChild(document.createTextNode(''));
-
-		//var label = document.createElement("label");
-              //label.for = custPage;
-              //label.name = custPageLabel;
-              //custom.appendChild(element);
+    	      cb.name = custCheck;
+    	      cb.value = '0';
+    	      cb.appendChild(document.createTextNode(''));
 
 		var element = document.createElement("input");
-              element.setAttribute("type", "text");
-              element.setAttribute("value", favoriteLinks[index]);
+                element.setAttribute("type", "text");
+                element.setAttribute("value", favoriteLinks[index]);
       		element.setAttribute("name", custPageName);
+      		element.setAttribute("size", "40");
 
 		//Append the element in page.
 		custom.appendChild(element);
               
               var breaknode = document.createElement('br');
-		custom.appendChild(breaknode);
+	      custom.appendChild(breaknode);
               indexFavLinks++;
   	}
-	//document.getElementsByName("numMostFavorite").value = indexFavLinks;
+	setTempNumOfFavoriteLinks(indexFavLinks);
+       
+        if (indexFavLinks == 0)
+        	addFavorite();	
 
 </script>  	  	  
 </body>
