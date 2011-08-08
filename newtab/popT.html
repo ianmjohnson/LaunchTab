@@ -28,15 +28,16 @@
 </style>
 
     <script>
-//Function to get the url of the current page and send it to favorite links
-function store() {
-     chrome.tabs.getSelected(null,function(tab) {
-      var tablink = tab.url;
-      addFavoriteLink(tablink);
-
-      });
-window.close();
-      }
+	//Function to get the url of the current page and send it to favorite links
+	function store() {
+		chrome.tabs.getSelected(null,function(tab) {
+			var tablink = tab.url;
+			addFavoriteLink(tablink);
+			var bg = chrome.extension.getBackgroundPage();
+			bg.takeScreenshot(tablink);
+		});
+		window.close();
+	}
 
      
 

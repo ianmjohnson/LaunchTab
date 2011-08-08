@@ -2,13 +2,28 @@
  <head>
   <title>LaunchTab</title>
   <script src="data.js"></script>
+
+  
   <style>
   
   	body {
   		font-family:Calibri;
   		font-size:1.2em; 
-  	
+		
   	}
+	
+	.mainBody
+	{
+		margin-left:auto;
+		margin-right:auto;
+		width:1000px;
+	}
+	
+	.favTable
+	{
+		margin-left:auto;
+		margin-right:auto;
+	}
   	
   	
   	a {
@@ -22,7 +37,20 @@
   		
   	}
   	
-  
+	
+
+	.favLinkCell {
+		border-color: white;
+  		border-style: solid;
+		border-width: 1px;
+	}
+	
+	.favLinkCell:HOVER {
+		border-color: blue;
+  		border-style: solid;
+		border-width: 1px;
+	
+	}
   	
   	.linkHeader {
   		font-weight: bold;
@@ -63,12 +91,23 @@
   	
   	
 
-	function displayFavoriteLink(url){
-		var ulFavoriteLinks = document.getElementById('ulFavoriteLinks');
+	function displayFavoriteLink(url, newRow){
+		//var ulFavoriteLinks = document.getElementById('ulFavoriteLinks');
 		if (url != "" && url != null && url != "null") {
-	 		var fav = document.createElement('li');
-		 	fav.innerHTML = "<a href='" + url + "'>" + url + "</a>";
-		  	ulFavoriteLinks.appendChild(fav);  		  
+	 		var fav = document.createElement('td');
+			fav.className = "favLinkCell";
+			fav.align = "center";
+		 	var imageUrl = null;
+			if (localStorage[url] != null) {
+				imageUrl = localStorage[url];
+			}
+			fav.innerHTML = "<a href='" + url + "'><img class='dropshadow' src='" + imageUrl + "' width='200' height='150'/></a>" ;
+			
+			fav.innerHTML += "<br>" + url;
+			
+			newRow.appendChild(fav);  		  
+			
+			
 		}
 	}
 
@@ -83,8 +122,13 @@
   
  </head>
  <body>
-  
+ <div class="mainbody">
   <label class="linkHeader">Favorite Links</label> 
+  <p>
+  <table id="tabFavoriteLinks" class="favTable">
+  
+  </table>
+  </p>
   <ul id="ulFavoriteLinks" >
   </ul>  
 	
@@ -97,12 +141,11 @@
     <ul id="ulMostRecent" >
   	</ul>  
 	
+	</div>
 	
 	
  <script type="text/javascript">
   
- 	//TODO: show/hide sections based on options
- 	
  	//parse the last 30 days of history
  	var date = new Date();
 	date.setDate(date.getDate() - 30);
@@ -113,7 +156,7 @@
   		****** MOST RECENT ********************
   		**************************************/
   	 	var ulMostRecent = document.getElementById('ulMostRecent');
-  	 	for (i = 0; i < 10; i++) {
+  	 	for (i = 0; i < getNumOfRecentLinks(); i++) {
   	 		var hostname = getLocation(items[i].url).hostname;
   	 		var link = document.createElement('li');
 			link.innerHTML = "<a href='" + items[i].url + "'>" + hostname + "</a>&nbsp;&nbsp;<i>(" + items[i].title + ")</i>";
@@ -134,7 +177,7 @@
   	 	var alreadyUsedDomains = new Array();
   	 	var count = 0;
   	 	var index = 0;
-  	 	while (index < mostVisitedItems.length && count <= 10) {
+  	 	while (index < mostVisitedItems.length && count <= getNumOfVistedLinks()) {
   	 		var tmpItem = mostVisitedItems[index];
   	 		var hostname = getLocation(tmpItem.url).hostname;
   	 		
@@ -163,10 +206,29 @@
  	var favoriteLinks = new Array();
   	favoriteLinks = getFavoriteLinks();
   	
-  	for (index in favoriteLinks) {
-  		displayFavoriteLink(favoriteLinks[index]);	
-  	}
-  	
+	
+	tabFavoriteLinks = document.getElementById('tabFavoriteLinks');
+	
+	if (favoriteLinks.length > 0) {
+		
+		var newRow = document.createElement("tr");
+		var rowCounter = 1;
+		for (index in favoriteLinks) {
+			displayFavoriteLink(favoriteLinks[index], newRow);	
+			
+			if ((rowCounter % 4) == 0 && rowCounter > 0) {
+				tabFavoriteLinks.appendChild(newRow);
+				newRow = document.createElement("tr");
+			}
+			
+			rowCounter++;
+		}
+		
+		if (((rowCounter - 1) % 4) != 0) {
+			tabFavoriteLinks.appendChild(newRow);
+		}
+		
+	}		
   	
   
   
