@@ -30,7 +30,11 @@
 // Saves options to localStorage.
 function save_all_options() { 
   setNumOfVistedLinks(document.getElementById("numMostVisited").value);
+  setShowVistedLinks(document.getElementById("showMostVisited").checked);  
+
   setNumOfRecentLinks(document.getElementById("numMostRecent").value);
+  setShowRecentLinks(document.getElementById("showMostRecent").checked);  
+
   save_fav_links();
 }
 
@@ -44,11 +48,17 @@ function save_fav_links() {
   for (var i=0; i<numFavLinks; i++)
   {
      var custPageName = "customPage";
+     var custCheckName = 'customCheck';
      custPageName += i; 
+     custCheckName += i;
      if ( oFormObject.elements[custPageName] && oFormObject.elements[custPageName].value != "" )
+     {
      	favoriteLinks.push(oFormObject.elements[custPageName].value);
+     }
   }
   setFavoriteLinks(favoriteLinks);
+  alert("Saved successfully.");
+  window.location.reload();
 }
 
 function addFavorite() {
@@ -103,34 +113,16 @@ function clearFavorite() {
      {
          oFormObject.elements[custPageName].value = "";
          oFormObject.elements[custCheckName].checked = 0;
-         //custom.removeChild(oFormObject.elements[custPageName]);
-         //custom.removeChild(oFormObject.elements[custCheckName]);
      }
   }
 }
 
-</script>  
- </head>
- <body>  
-  <label class="header">Launch Tab Options</label> <br /><br />
-  <button onclick="save_all_options()">Save All</button> <br /><br />
-  <label class="label">Maximum Number of Most Visited Links:</label>
-  <input type="text" size= "5" maxlength="3" id="numMostVisited" /><br />
-  <label class="label">Maximum Number of Most Recent Links:</label>
-  <input type="text" size= "5" maxlength="3" id="numMostRecent" /><br /><br /><br />
-
-  <label class="linkHeader">Favorite Links:</label><br /><br />    
-  <button onclick="clearFavorite()">Clear</button>  
-  <button onclick="addFavorite()">Add New</button>  
-  <button onclick="save_fav_links()">Save</button> <br />
-  <form id="ulCustoms" action="#">
-  </form>  
-
-
- <script type="text/javascript">
-  
+function load(){
         document.getElementById("numMostVisited").value = getNumOfVistedLinks();
         document.getElementById("numMostRecent").value = getNumOfRecentLinks();
+
+        document.getElementById("showMostVisited").checked = Boolean(getShowVistedLinks());
+        document.getElementById("showMostRecent").checked = Boolean(getShowRecentLinks());
 
 	//populate the favorites
  	var favoriteLinks = new Array();
@@ -174,8 +166,51 @@ function clearFavorite() {
        
         if (indexFavLinks == 0)
         	addFavorite();	
+}
 
-</script>  	  	  
+function show_most_visited_options()
+{
+	var isChecked = document.getElementById("showMostVisited").checked;
+	if ( isChecked )
+        	document.getElementById("numMostVisited").disabled = false;
+	else
+		document.getElementById("numMostVisited").disabled = true;
+}
+
+function show_most_recent_options()
+{
+	var isChecked = document.getElementById("showMostRecent").checked;
+	if ( isChecked )
+        	document.getElementById("numMostRecent").disabled = false;
+	else
+		document.getElementById("numMostRecent").disabled = true;
+}
+
+</script>  
+ </head>
+ <body>  
+  <label class="header">Launch Tab Options</label> <br /><br />
+  <button onclick="save_all_options()">Save All</button> <br /><br />
+  <input onclick="show_most_visited_options()" type="checkbox" id="showMostVisited" />Show most visited
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <label class="label">Maximum Number of Most Visited Links:</label>
+  <input type="text" size= "5" maxlength="3" id="numMostVisited" /><br />
+  <input onclick="show_most_recent_options()" type="checkbox" id="showMostRecent" />Show most recent<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <label class="label">Maximum Number of Most Recent Links:</label>
+  <input type="text" size= "5" maxlength="3" id="numMostRecent" /><br /><br /><br />
+
+  <label class="linkHeader">Favorite Links:</label><br /><br />    
+  <button onclick="clearFavorite()">Clear Selected</button>  
+  <button onclick="addFavorite()">Add New</button>  
+  <form id="ulCustoms" action="#">
+  </form>  
+
+
+ <script type="text/javascript">
+        load();  
+ </script>  	  	  
 </body>
 </html>
 

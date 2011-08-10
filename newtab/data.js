@@ -9,12 +9,27 @@ function setNumOfVistedLinks(numlinks)
 
 function getNumOfVistedLinks()
 {
-	var returnLinks = "10"; 
+	var returnLinks = "0"; 
 	if (localStorage["visitedLinks"] != null) {
 		returnLinks = localStorage["visitedLinks"];
 	}
 	return returnLinks;
 }
+
+function setShowVistedLinks(show)
+{
+	localStorage["showVisitedLinks"] = show;
+}
+
+function getShowVistedLinks()
+{
+        var show = true;
+	if (localStorage["showVisitedLinks"] != null) {
+		show = localStorage["showVisitedLinks"];
+	}
+	return Boolean(show);
+}
+
 
 /*********************************************
  * Recent LINKS
@@ -27,12 +42,27 @@ function setNumOfRecentLinks(numlinks)
 
 function getNumOfRecentLinks()
 {
-	var returnLinks = "10"; 
+	var returnLinks = "0"; 
 	if (localStorage["recentLinks"] != null) {
 		returnLinks = localStorage["recentLinks"];
 	}
 	return returnLinks;
 }
+
+function setShowRecentLinks(show)
+{
+	localStorage["showRecentLinks"] = show;
+}
+
+function getShowRecentLinks()
+{
+        var show = true;
+	if (localStorage["showRecentLinks"] != null) {
+		show = localStorage["showRecentLinks"];
+	}
+	return Boolean(show);
+}
+
 
 /*********************************************
  * FAVORITE LINKS
