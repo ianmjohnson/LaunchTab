@@ -30,10 +30,10 @@
 // Saves options to localStorage.
 function save_all_options() { 
   setNumOfVistedLinks(document.getElementById("numMostVisited").value);
-  setShowVistedLinks(document.getElementById("showMostVisited").checked);  
+  setShowVistedLinks(document.getElementById("showMostVisited").value);  
 
   setNumOfRecentLinks(document.getElementById("numMostRecent").value);
-  setShowRecentLinks(document.getElementById("showMostRecent").checked);  
+  setShowRecentLinks(document.getElementById("showMostRecent").value);  
 
   save_fav_links();
 }
@@ -121,8 +121,8 @@ function load(){
         document.getElementById("numMostVisited").value = getNumOfVistedLinks();
         document.getElementById("numMostRecent").value = getNumOfRecentLinks();
 
-        document.getElementById("showMostVisited").checked = Boolean(getShowVistedLinks());
-        document.getElementById("showMostRecent").checked = Boolean(getShowRecentLinks());
+        document.getElementById("showMostVisited").checked = getShowVistedLinks();
+        document.getElementById("showMostRecent").checked = getShowRecentLinks();
 
 	//populate the favorites
  	var favoriteLinks = new Array();

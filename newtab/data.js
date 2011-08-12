@@ -23,11 +23,11 @@ function setShowVistedLinks(show)
 
 function getShowVistedLinks()
 {
-        var show = true;
+        var show = 1;
 	if (localStorage["showVisitedLinks"] != null) {
 		show = localStorage["showVisitedLinks"];
 	}
-	return Boolean(show);
+	return show;
 }
 
 
@@ -56,11 +56,11 @@ function setShowRecentLinks(show)
 
 function getShowRecentLinks()
 {
-        var show = true;
+        var show = 1;
 	if (localStorage["showRecentLinks"] != null) {
 		show = localStorage["showRecentLinks"];
 	}
-	return Boolean(show);
+	return show;
 }
 
 
