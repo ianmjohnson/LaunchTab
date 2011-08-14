@@ -1,14 +1,22 @@
-
+===============================
+COPYRIGHT
+===============================
 Copyright (c) 2011 Ian Johnson, Minh Truong and Betsy Rubina Kavali
 
+
+===============================
+DESCRIPTION
+===============================
 This project creates a Chrome (Chromium) extension designed to allow customization of the "New Tab" page. There are currently several extensions in the Chrome Store that allow customization (notably, Speed Dial), but nothing exactly for what we’re looking for.
 
 Currently the New Tab page shows a thumbnail view of the most visited sites.  We have created a similar interface where the New Tab page also shows a set of links the user wants, bookmarked or not.  The extension Speed Dial does a similar thing, only it seems to have been discontinued for support, which has frustrated the community since its currently got some major performance problems. 
 
 The languages we mainly used for this extension are JavaScript and HTML. 
 
-Documentation
 
+===============================
+DOCUMENTATION
+===============================
 The steps below install the extension or one can also make changes to the extension and reload them. These instructions are also available at http://code.google.com/chrome/extensions
 
 1.The extensions's code must be saved in a folder somewhere on your computer.
@@ -23,8 +31,10 @@ The steps below install the extension or one can also make changes to the extens
    a. Edit the files inside the extension folder.
    b. Return to the extensions management page, and click the Reload button to load the new version of the extension.
 
-License Information
-
+   
+===============================
+LICENSE INFORMATION
+===============================
 This project is currently under The MIT License (MIT)
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

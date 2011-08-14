@@ -1,0 +1,259 @@
+<html>
+  <head>
+    <style>
+	  	.my_table {
+	  	   margin:2px;
+	  	   font-family:Arial;
+	  	   font-size:11px;
+	  	   border: solid 1px #aaaaaa;
+		}
+
+		.my_table tr.odd {
+		  background-color:#fff5cc;
+		}
+
+		.my_table tr.even {
+		  background-color:#ffffff;
+		}
+
+		.my_table td {
+		  padding: 3px;
+		  vertical-align:top;
+		}
+
+		.my_table td.rborder {
+		  border-right: solid 1px #aaaaaa;
+		}
+
+		.my_table td.bborder {
+		  border-bottom: solid 1px #aaaaaa;
+		}
+
+		.my_table td.tborder {
+		  border-top: solid 1px #aaaaaa;
+		}
+
+		.my_table td.ralign {
+		  text-align: right;
+		}
+
+		.my_table td.calign {
+		  text-align: center;
+		}
+
+		.my_table tr.heading td {
+		  padding: 5px;
+		  font-weight: bold;
+		  text-align: center;
+		  background-color: #aff2fb;
+		}
+
+		.my_table td.odd {
+		  background-color: #aff2fb;
+		}
+
+		.my_table td.even {
+		  background-color: #ffffff;
+		}
+
+		.style1 {
+			font-size: 12px;
+			font-weight: bold;
+			color: #000000;
+			line-height: 1.5;
+	   }
+    </style>
+    <script>
+      var logging = false;
+      var key1 = "Name";
+	  var key2 = "NameMinus1";
+	  var key3 = "NameMinus2";
+	var key4 = "NameMinus3";
+	var key5 = "NameMinus4";
+	var key6 = "NameMinus5";
+	var key7 = "NameMinus6";
+	var key8 = "NameMinus7";
+	var key_temp = "page";
+	  var val1;
+	  var val2;
+          var val3;
+	  var val4;
+	var val5;
+	var val6;
+	var val7;
+	var val8;
+      
+      function populate() {
+        log('entered populate()');
+    
+     chrome.tabs.getSelected(null,function(tab) {
+     var tablink = tab.url;
+     localStorage[key_temp] = tablink;
+
+     });
+
+
+        val1 = getValue(key1);
+        val2 = getValue(key2);
+        val3 = getValue(key3);
+	val4 = getValue(key4);
+	val5 = getValue(key5);
+	val6 = getValue(key6);
+	val7 = getValue(key7);
+	val8 = getValue(key8);
+
+        updateValues();
+        log('leaving populate()');
+      }
+      function store() {
+        log('entered store()');
+
+        logAllKeyValues();
+         var oldName = chrome.extension.getBackgroundPage().getItem(key1);
+         var newName = localStorage[key_temp];
+        log('About to Update');
+        
+	val8 = val7;
+	val7 = val6;
+	val6 = val5;
+	val5 = val4;
+	val4 = val3;
+	val3 = val2;
+        val2 = val1;
+        val1 = newName;
+
+        logAllKeyValues();
+
+        chrome.extension.getBackgroundPage().setItem(key1,val1);
+        chrome.extension.getBackgroundPage().setItem(key2,val2);
+        chrome.extension.getBackgroundPage().setItem(key3,val3);
+	chrome.extension.getBackgroundPage().setItem(key4,val4);
+	chrome.extension.getBackgroundPage().setItem(key5,val5);
+	chrome.extension.getBackgroundPage().setItem(key6,val6);
+	chrome.extension.getBackgroundPage().setItem(key7,val7);
+	chrome.extension.getBackgroundPage().setItem(key8,val8);
+	
+        updateValues();
+
+        log('leaving store()');
+
+      }
+      function getValue(key) {
+        return chrome.extension.getBackgroundPage().getItem(key);
+      }
+
+      function updateValues() {
+        document.getElementById('val1').innerHTML = val1;
+        document.getElementById('val2').innerHTML = val2;
+        document.getElementById('val3').innerHTML = val3;
+	document.getElementById('val4').innerHTML = val4;
+	document.getElementById('val5').innerHTML = val5;
+	document.getElementById('val6').innerHTML = val6;
+	document.getElementById('val7').innerHTML = val7;
+	document.getElementById('val8').innerHTML = val8;
+		
+      }
+      function logAllKeyValues() {
+        log(key1 + ":" + val1);
+	    log(key2 + ":" + val2);
+        log(key3 + ":" + val3);
+	log(key4 + ":" + val4);
+	log(key5 + ":" + val5);
+	log(key6 + ":" + val6);
+	log(key7 + ":" + val7);
+	log(key8 + ":" + val8);
+
+      }
+      function clearStorage() {
+	    log('inside clear');
+	      try {
+	        chrome.extension.getBackGroundPage().clearStrg();
+	      }catch(e) {
+	        console.log("error while clearing local storage");
+	        console.log(e);
+	      }
+
+	      document.getElementById('val1').innerHTML = "";
+	      document.getElementById('val2').innerHTML = "";
+	      document.getElementById('val3').innerHTML = "";
+		document.getElementById('val4').innerHTML = "";
+		document.getElementById('val5').innerHTML = "";
+		document.getElementById('val6').innerHTML = "";
+		document.getElementById('val7').innerHTML = "";
+		document.getElementById('val8').innerHTML = "";
+	      val1 = null;
+	      val2 = null;
+	      val3 = null;
+		val4 = null;
+		val5 = null;
+		val6 = null;
+		val7 = null;
+		val8 = null;
+		
+              delete localStorage[10];
+
+      }
+      function log(txt) {
+        if(logging) {
+          chrome.extension.getBackgroundPage().log(txt);
+        }
+      }
+
+    </script>
+  </head>
+  <body onload='populate()'>
+    <form name='form1'>
+      <table class="my_table" cellpadding="0" cellspacing="0" width=200px>
+        <tr>
+	  	  <td class="style1" colspan="2" align="center">Store this current page to Custom Links</td>
+	  	</tr>
+	  	
+		<tr class="even">
+		  <td class="rborder" colspan="2" align='center'>
+		    <input type='submit' value='store' OnClick='store()'/></td>
+	    </tr>
+		<tr class="odd"
+		  <td class="rborder"></td>
+		  <td class="ralign"></td>
+		</tr>
+		<tr class="even">
+		<td colspan="2">Previous Values Stored</td>
+		</tr>
+		<tr class="odd"
+		  <td class="rborder"> </td>
+		  <td class="ralign"><div id='val1'/></td>
+		</tr>
+		<tr class="even"
+		  <td class="rborder"> </td>
+		  <td class="ralign"><div id='val2'/></td>
+		</tr>
+		<tr class="odd"
+	      <td class="rborder"> </td>
+		  <td class="ralign"><div id='val3'/></td>
+		</tr>
+		
+		<tr class="even"
+		  <td class="rborder"> </td>
+		  <td class="ralign"><div id='val4'/></td>
+		</tr>
+		<tr class="odd"
+		  <td class="rborder"> </td>
+		  <td class="ralign"><div id='val5'/></td>
+		</tr>
+		<tr class="even"
+		  <td class="rborder"> </td>
+		  <td class="ralign"><div id='val6'/></td>
+		</tr>
+		<tr class="odd"
+		  <td class="rborder"> </td>
+		  <td class="ralign"><div id='val7'/></td>
+		</tr>
+		<tr class="even"
+		  <td class="rborder"> </td>
+		  <td class="ralign"><div id='val8'/></td>
+		</tr>
+		
+      </table>
+    </form>
+  </body>
+</html>

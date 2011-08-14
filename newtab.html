@@ -1,0 +1,248 @@
+<html>
+ <head>
+  <title>LaunchTab</title>
+  <script src="data.js"></script>
+
+  
+  <style>
+  
+  	body {
+  		font-family:Calibri;
+  		font-size:1.2em; 
+		
+  	}
+	
+	.mainBody
+	{
+		margin-left:auto;
+		margin-right:auto;
+		width:1000px;
+	}
+	
+	.favTable
+	{
+		margin-left:auto;
+		margin-right:auto;
+	}
+  	
+  	
+  	a {
+  		color: black;
+  		text-decoration:none;
+  	}
+  	
+  	a:HOVER {
+  		color: blue;
+  		text-decoration:underline;
+  		
+  	}
+  	
+	
+
+	.favLinkCell {
+		border-color: white;
+  		border-style: solid;
+		border-width: 1px;
+	}
+	
+	.favLinkCell:HOVER {
+		border-color: blue;
+  		border-style: solid;
+		border-width: 1px;
+	
+	}
+  	
+  	.linkHeader {
+  		font-weight: bold;
+  		color: white;
+  		background-color: gray;
+  		font-size: 1.1em;
+  		padding: 2px;
+  		border-color: black;
+  		border-style: solid;
+		border-width: 1px;
+  		
+  	}
+  	
+  	li {
+  		color: gray;
+  	}
+  
+  	
+  </style>
+  
+  
+  	<script type="text/javascript">
+  	
+  	 function getLocation(href) {
+  	    var l = document.createElement("a");
+  	    l.href = href;
+  	    return l
+  	  }
+  	  
+  	  function contains(a, obj){
+  		  for(var i = 0; i < a.length; i++) {
+  		    if(a[i] === obj){
+  		      return true;
+  		    }
+  		  }
+  		  return false;
+  		}
+  	
+  	
+
+	function displayFavoriteLink(url, newRow){
+		//var ulFavoriteLinks = document.getElementById('ulFavoriteLinks');
+		if (url != "" && url != null && url != "null") {
+	 		var fav = document.createElement('td');
+			fav.className = "favLinkCell";
+			fav.align = "center";
+		 	var imageUrl = null;
+			if (localStorage[url] != null) {
+				imageUrl = localStorage[url];
+			}
+			fav.innerHTML = "<a href='" + url + "'><img class='dropshadow' src='" + imageUrl + "' width='200' height='150'/></a>" ;
+			
+			fav.innerHTML += "<br>" + url;
+			
+			newRow.appendChild(fav);  		  
+			
+			
+		}
+	}
+
+
+
+
+
+  	</script>
+
+  
+  
+  
+ </head>
+ <body>
+ <div class="mainbody">
+  <label class="linkHeader">Favorite Links</label> 
+  <p>
+  <table id="tabFavoriteLinks" class="favTable">
+  
+  </table>
+  </p>
+  <ul id="ulFavoriteLinks" >
+  </ul>  
+	
+	
+  <label class="linkHeader">Most Visited</label> 
+    <ul id="ulMostVisited" >
+  </ul>  
+  
+   <label class="linkHeader">Most Recent</label> 
+    <ul id="ulMostRecent" >
+  	</ul>  
+	
+	</div>
+	
+	
+ <script type="text/javascript">
+  
+ 	//parse the last 30 days of history
+ 	var date = new Date();
+	date.setDate(date.getDate() - 30);
+
+ 	chrome.history.search({text: "", maxResults: 1000, startTime: Number(date)}, function(items) {
+  		
+  		/**************************************
+  		****** MOST RECENT ********************
+  		**************************************/
+                if ( getShowRecentLinks() )
+		{
+  	 		var ulMostRecent = document.getElementById('ulMostRecent');
+  	 		for (i = 0; i < getNumOfRecentLinks(); i++) {
+  	 			var hostname = getLocation(items[i].url).hostname;
+  	 			var link = document.createElement('li');
+				link.innerHTML = "<a href='" + items[i].url + "'>" + hostname + "</a>&nbsp;&nbsp;<i>(" + items[i].title + ")</i>";
+				ulMostRecent.appendChild(link);
+	  	 	}
+		}
+  	 	
+  		/**************************************
+  		****** MOST VISITED *******************
+  		**************************************/
+		if ( getShowVistedLinks() )
+		{
+	  	 	// determine the most visited
+	  	 	var mostVisitedItems = items;
+	  	 	mostVisitedItems.sort(function(a, b){
+	  	 	 return b.visitCount - a.visitCount;
+	  	 	})
+	  	 	
+	  	 	// populate the most visited
+	  		var ulMostVisited = document.getElementById('ulMostVisited');
+	  	 	var alreadyUsedDomains = new Array();
+	  	 	var count = 0;
+	  	 	var index = 0;
+	  	 	while (index < mostVisitedItems.length && count < getNumOfVistedLinks()) {
+	  	 		var tmpItem = mostVisitedItems[index];
+	  	 		var hostname = getLocation(tmpItem.url).hostname;
+	  	 		
+	  	 		
+	  	 		//there are  cases where are multiple "most visited" entries for the same domain; we only use the latest one.  
+	  	 		//an example of this being an issue is with gmail. if the user types in mail.google.com or gmail.com, they are redirected automatically to the https://mail.google.com/mail/#inbox.  
+	  	 		//in this situation we would erroneously get two "gmail" entries in the most visited list, which would pollute the results.
+	  	 		if (!contains(alreadyUsedDomains, hostname)) {	
+					var link = document.createElement('li');
+					link.innerHTML = "<a href='" + tmpItem.url + "'>" + hostname + "</a>&nbsp;&nbsp;<i>(" + tmpItem.title + ")</i>";
+					ulMostVisited.appendChild(link);
+					count++;
+					alreadyUsedDomains.push(hostname);
+				}
+	  	 		index++;
+	  	 	}  	
+		} 	
+  	 		  	 	
+  	});
+  
+  
+  	/**************************************
+	****** FAVORITES **********************
+	**************************************/
+	 	
+  	//populate the favorites
+ 	var favoriteLinks = new Array();
+  	favoriteLinks = getFavoriteLinks();
+  	
+	
+	tabFavoriteLinks = document.getElementById('tabFavoriteLinks');
+	
+	if (favoriteLinks.length > 0) {
+		
+		var newRow = document.createElement("tr");
+		var rowCounter = 1;
+		for (index in favoriteLinks) {
+			displayFavoriteLink(favoriteLinks[index], newRow);	
+			
+			if ((rowCounter % 4) == 0 && rowCounter > 0) {
+				tabFavoriteLinks.appendChild(newRow);
+				newRow = document.createElement("tr");
+			}
+			
+			rowCounter++;
+		}
+		
+		if (((rowCounter - 1) % 4) != 0) {
+			tabFavoriteLinks.appendChild(newRow);
+		}
+		
+	}		
+  	
+  
+  
+  </script>
+ 
+
+	
+	
+ </body>
+</html>
+

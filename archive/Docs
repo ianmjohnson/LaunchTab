@@ -1,0 +1,17 @@
+Copyright (c) 2011 Ian Johnson, Minh Truong and Betsy Rubina Kavali
+
+Documents
+
+The steps below install the extension or one can also make changes to the extension and reload them. These instructions are also available at http://code.google.com/chrome/extensions
+
+1.The extensions's code must be saved in a folder somewhere on your computer.
+  
+2.Steps to load extension onto your Chrome Browser.
+    a. Bring up the extensions management page by clicking the wrench icon and choosing Tools > Extensions.
+    b. If Developer mode has a + by it, click the + to add developer information to the page. The + changes to a -, and more buttons and information appear.
+    c. Click the Load unpacked extension button. A file dialog appears.
+    d. In the file dialog, navigate to your extension's folder and click OK.
+
+3.To edit/add the extension
+   a. Edit the files inside the extension folder.
+   b. Return to the extensions management page, and click the Reload button to load the new version of the extension.
